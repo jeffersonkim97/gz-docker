@@ -1,0 +1,31 @@
+version: "3.9"
+
+volumes:
+
+    # remembers gz config, downloaded models etc
+    gz_config:
+
+services:
+
+  simulator:
+    environment:
+      - DISPLAY=$DISPLAY
+      - SSH_AUTH_SOCK=${SSH_AUTH_SOCK}
+    image: gzsim
+    # image: ${REGISTRY}/cognipilot/dream:${TAG}
+    build:
+      dockerfile: Dockerfile.dev
+    tty: true
+    stdin_open: true
+    privileged: true
+    hostname: simulator
+    sysctls:
+      - net.ipv6.conf.all.disable_ipv6=0
+    volumes:
+      - ./work:/home/user/work
+      - gz_config:/home/user/.gz
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - ${SSH_AUTH_SOCK}:${SSH_AUTH_SOCK}
+      - $HOME/gnupg:/home/user/.gnupg
+      - $HOME/.ssh:/home/user/.ssh
+      - $HOME/.gitconfig:/home/user/.gitconfig
