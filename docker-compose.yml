@@ -9,6 +9,8 @@ services:
 
   simulator:
     environment:
+      - HOST_UID=${HOST_UID}
+      - HOST_GID=${HOST_GID}
       - DISPLAY=$DISPLAY
       - SSH_AUTH_SOCK=${SSH_AUTH_SOCK}
     image: gzsim

@@ -1,2 +1,4 @@
 #!/bin/bash
-docker compose run -d simulator terminator
+export HOST_UID=$(id -u)
+export HOST_GID=$(id -g)
+docker compose run simulator terminator
